@@ -2,7 +2,6 @@ import psycopg2
 from psycopg2 import pool
 from config import DB_CONFIG
 
-# Create a connection pool
 connection_pool = None
 
 def init_db_pool():
