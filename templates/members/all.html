@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Photography Club - All Members{% endblock %}
+
+{% block additional_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/members.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>Club Members</h2>
+    {% if selected_domain %}
+    <p>Showing members in the <strong>{{ selected_domain }}</strong> domain</p>
+    <a href="{{ url_for('members_domain_selection') }}" class="btn btn-sm">Change Domain</a>
+    {% else %}
+    <p>Showing all club members</p>
+    <a href="{{ url_for('members_domain_selection') }}" class="btn btn-sm">Filter by Domain</a>
+    {% endif %}
+</div>
+
+<div class="members-container">
+    {% if members %}
+    <table class="members-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Batch</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in members %}
+            <tr>
+                <td>{{ member[0] }}</td>
+                <td>{{ member[1] }}</td>
+                <td>
+                    <a href="{{ url_for('member_details', name=member[0]) }}" class="btn btn-sm">View Details</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="no-data">
+        <p>No members found{% if selected_domain %} in the {{ selected_domain }} domain{% endif %}.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

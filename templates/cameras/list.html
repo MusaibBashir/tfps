@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}Photography Club - Camera Equipment{% endblock %}
+
+{% block additional_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cameras.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>Camera Equipment</h2>
+    <p>Browse all available camera equipment in the club</p>
+</div>
+
+<div class="cameras-container">
+    {% if cameras %}
+    <table class="cameras-table">
+        <thead>
+            <tr>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>ID</th>
+                <th>Lenses</th>
+                <th>SD Card Size</th>
+                <th>Accessories</th>
+                <th>Owner</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for camera in cameras %}
+            <tr>
+                <td>{{ camera[0] }}</td>
+                <td>{{ camera[1] }}</td>
+                <td>{{ camera[2] }}</td>
+                <td>{{ camera[3] }}</td>
+                <td>{{ camera[4] }}</td>
+                <td>{{ camera[5] }}</td>
+                <td>
+                    {% if camera[6] %}
+                    <a href="{{ url_for('member_details', name=camera[6]) }}">{{ camera[6] }}</a>
+                    {% else %}
+                    <span class="club-owned">Club Owned</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="no-data">
+        <p>No camera equipment found in the database.</p>
+    </div>
+    {% endif %}
+</div>
+
+<div class="camera-stats">
+    <div class="stat-card">
+        <div class="stat-icon">📷</div>
+        <div class="stat-value">{{ cameras|length }}</div>
+        <div class="stat-label">Total Cameras</div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-icon">🏢</div>
+        <div class="stat-value">{{ cameras|map(attribute=0)|unique|list|length }}</div>
+        <div class="stat-label">Brands</div>
+    </div>
+</div>
+{% endblock %}

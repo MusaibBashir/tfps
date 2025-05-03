@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Photography Club - {{ name }} Details{% endblock %}
+
+{% block additional_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/members.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>{{ name }}</h2>
+    <div class="breadcrumb">
+        <a href="{{ url_for('members_all') }}">Members</a> &gt; {{ name }}
+    </div>
+</div>
+
+<div class="member-details">
+    <div class="detail-section">
+        <h3>Basic Information</h3>
+        <div class="detail-card">
+            <div class="detail-item">
+                <span class="detail-label">Name:</span>
+                <span class="detail-value">{{ name }}</span>
+            </div>
+            
+            <div class="detail-item">
+                <span class="detail-label">Batch:</span>
+                <span class="detail-value">{{ batch }}</span>
+            </div>
+            
+            <div class="detail-item">
+                <span class="detail-label">Domain:</span>
+                <span class="detail-value">{{ domain }}</span>
+            </div>
+        </div>
+    </div>
+    
+    {% if personal_details %}
+    <div class="detail-section">
+        <h3>Personal Details</h3>
+        <div class="detail-card">
+            {% for key, value in personal_details.items() %}
+            <div class="detail-item">
+                <span class="detail-label">{{ key|replace('_', ' ')|title }}:</span>
+                <span class="detail-value">{{ value }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    
+    {% if camera_details %}
+    <div class="detail-section">
+        <h3>Camera Equipment</h3>
+        <table class="detail-table">
+            <thead>
+                <tr>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>ID</th>
+                    <th>Lenses</th>
+                    <th>SD Card Size</th>
+                    <th>Accessory</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for camera in camera_details %}
+                <tr>
+                    <td>{{ camera[0] }}</td>
+                    <td>{{ camera[1] }}</td>
+                    <td>{{ camera[2] }}</td>
+                    <td>{{ camera[3] }}</td>
+                    <td>{{ camera[4] }}</td>
+                    <td>{{ camera[5] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="detail-section">
+        <h3>Camera Equipment</h3>
+        <div class="no-data">
+            <p>No camera equipment registered for this member.</p>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<div class="action-buttons">
+    <a href="{{ url_for('members_all') }}" class="btn">Back to Members</a>
+</div>
+{% endblock %}

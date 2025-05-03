@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TFPS{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    {% block additional_css %}{% endblock %}
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>TFPS</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}" class="{% if request.path == '/' %}active{% endif %}">Home</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle {% if 'members' in request.path %}active{% endif %}">Members</a>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('members_all') }}">All Members</a>
+                        <a href="{{ url_for('members_domain_selection') }}">By Domain</a>
+                    </div>
+                </li>
+                <li><a href="{{ url_for('cameras') }}" class="{% if 'cameras' in request.path %}active{% endif %}">Cameras</a></li>
+                <li><a href="{{ url_for('events') }}" class="{% if 'events' in request.path %}active{% endif %}">Events</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 TFPS. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block additional_js %}{% endblock %}
+</body>
+</html>

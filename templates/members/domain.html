@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Photography Club - Members by Domain{% endblock %}
+
+{% block additional_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/members.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>Browse Members by Domain</h2>
+    <p>Select a domain to view members specialized in that area</p>
+    <a href="{{ url_for('members_all') }}" class="btn btn-sm">View All Members</a>
+</div>
+
+<div class="domain-selection">
+    {% if domains %}
+    <div class="domain-grid">
+        {% for domain in domains %}
+        <a href="{{ url_for('members_by_domain', domain=domain[0]) }}" class="domain-card">
+            <div class="domain-icon">
+                {% if domain[0]|lower == 'photography' %}
+                📸
+                {% elif domain[0]|lower == 'editing' %}
+                🖌️
+                {% elif domain[0]|lower == 'music' %}
+                🎵
+                {% else %}
+                🎭
+                {% endif %}
+            </div>
+            <h3>{{ domain[0] }}</h3>
+            <span class="domain-btn">Browse Members</span>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="no-data">
+        <p>No domains found in the database.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

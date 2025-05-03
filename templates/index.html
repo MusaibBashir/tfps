@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}TFPS - Home{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h2>Welcome to TFPS</h2>
+        <p>Capturing moments, creating memories</p>
+    </div>
+</section>
+
+<section class="features">
+    <div class="feature-card">
+        <div class="feature-icon">👥</div>
+        <h3>Members</h3>
+        <p>Explore our talented community of photographers, cinematographers, editors, e.t.c abhi ke liye.</p>
+        <div class="feature-links">
+            <a href="{{ url_for('members_all') }}" class="btn">View All Members</a>
+            <a href="{{ url_for('members_domain_selection') }}" class="btn btn-outline">Browse by Domain</a>
+        </div>
+    </div>
+    
+    <div class="feature-card">
+        <div class="feature-icon">📷</div>
+        <h3>Camera Equipment</h3>
+        <p>Browse our collection of cameras, lenses, and accessories.</p>
+        <a href="{{ url_for('cameras') }}" class="btn">View Equipment</a>
+    </div>
+    
+    <div class="feature-card">
+        <div class="feature-icon">📅</div>
+        <h3>Upcoming Events</h3>
+        <p>Stay updated on shoots, photowalks and club meetups.</p>
+        <a href="{{ url_for('events') }}" class="btn">View Events</a>
+    </div>
+</section>
+{% endblock %}
