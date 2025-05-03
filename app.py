@@ -4,8 +4,8 @@ import psycopg2
 from urllib.parse import urlparse
 
 app = Flask(__name__)
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=10000)
 # Database connection handling
 def get_db_connection():
     """
