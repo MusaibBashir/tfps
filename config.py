@@ -1,8 +1,8 @@
 # Neon Console PostgreSQL Database Configuration
 DB_CONFIG = {
-    'user': 'your_username',        # Replace with your Neon database username
-    'password': 'your_password',    # Replace with your Neon database password
-    'host': 'your-db-host.neon.tech', # Replace with your Neon database host
-    'port': '5432',                 # Default PostgreSQL port
-    'database': 'your_database_name' # Replace with your database name
+    'user': 'neondb_owner',       
+    'password': 'npg_PnW0fdxZEu7w',   
+    'host': 'ep-little-darkness-a4xktv4f-pooler.us-east-1.aws.neon.tech',
+    'port': '5432',               
+    'database': 'neondb'
 }
