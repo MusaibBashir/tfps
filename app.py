@@ -6,24 +6,16 @@ from urllib.parse import urlparse
 app = Flask(__name__)
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=10000)
-# Database connection handling
+
 def get_db_connection():
-    """
-    Get a database connection using the Neon connection string from environment variables
-    """
-    # Get connection string from environment variable
     connection_string = os.environ.get('postgresql://neondb_owner:npg_PnW0fdxZEu7w@ep-little-darkness-a4xktv4f-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require')
-    
-    # If not set, use a default for development (you should set this in production)
     if not connection_string:
-        # You'll replace this with your actual Neon connection string
         connection_string = "postgresql://neondb_owner:npg_PnW0fdxZEu7w@ep-little-darkness-a4xktv4f-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require"
     
-    # Parse connection string and establish connection
     result = urlparse(connection_string)
     conn = psycopg2.connect(
         host=result.hostname,
-        database=result.path[1:],  # Remove leading slash
+        database=result.path[1:], 
         user=result.username,
         password=result.password,
         port=result.port
@@ -35,12 +27,12 @@ def release_db_connection(conn):
     if conn:
         conn.close()
 
-# Home route
+
 @app.route('/')
 def index():
     return render_template('index.html')
 
-# Members routes
+
 @app.route('/members')
 def members_all():
     conn = get_db_connection()
@@ -76,7 +68,7 @@ def member_details(name):
     conn = get_db_connection()
     cursor = conn.cursor()
     
-    # Get the UUID for the member
+
     cursor.execute("SELECT name.id FROM public.name WHERE name = %s", (name,))
     uuid_result = cursor.fetchone()
     
@@ -87,23 +79,19 @@ def member_details(name):
     
     uuid = uuid_result[0]
     
-    # Get basic details
     cursor.execute("SELECT name, batch, domain FROM public.name WHERE name.id = %s", (uuid,))
     basic_details = cursor.fetchone()
     
-    # Get personal details
     cursor.execute("SELECT * FROM public.personal_details WHERE personal_details.id = %s", (uuid,))
     columns = [desc[0] for desc in cursor.description]
     personal_details_result = cursor.fetchone()
     
-    # Filter out UUID
     personal_details = {}
     if personal_details_result:
         for i, col in enumerate(columns):
             if col.lower() != 'uuid':
                 personal_details[col] = personal_details_result[i]
     
-    # Get camera details
     cursor.execute("""
         SELECT camera_brand, camera_model, camera_id, lenses, sd_card_size, accessories 
         FROM public.cameras 
@@ -121,7 +109,6 @@ def member_details(name):
                           personal_details=personal_details,
                           camera_details=camera_details)
 
-# Camera routes
 @app.route('/cameras')
 def cameras():
     conn = get_db_connection()
@@ -137,7 +124,6 @@ def cameras():
     release_db_connection(conn)
     return render_template('cameras/list.html', cameras=cameras)
 
-# Events route (placeholder)
 @app.route('/events')
 def events():
     return render_template('events/list.html')
