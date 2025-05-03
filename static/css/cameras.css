@@ -1,10 +1,8 @@
-/* Cameras Section Styles */
-
 .cameras-container {
     margin-bottom: 40px;
 }
 
-/* Camera Filter Styles */
+
 .camera-filter {
     background-color: var(--card-bg);
     border-radius: 8px;
@@ -46,7 +44,6 @@
     box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
 
-/* Camera Table Styles */
 .cameras-table {
     width: 100%;
     border-collapse: collapse;
@@ -73,12 +70,12 @@
     background-color: rgba(52, 152, 219, 0.05);
 }
 
-/* Added for JS highlight functionality */
+
 .cameras-table tr.highlight {
     background-color: rgba(52, 152, 219, 0.1);
 }
 
-/* Added for expandable rows */
+
 .cameras-table tr.expanded {
     background-color: rgba(52, 152, 219, 0.15);
 }
@@ -123,7 +120,7 @@
     font-size: 0.85rem;
 }
 
-/* Camera Stats */
+
 .camera-stats {
     display: flex;
     justify-content: center;
@@ -164,7 +161,7 @@
     font-size: 0.9rem;
 }
 
-/* Specific styling for stat cards added by JS */
+
 .owner-stat-card .stat-icon {
     color: var(--secondary-color);
 }
@@ -173,7 +170,7 @@
     color: #9b59b6;
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 992px) {
     .cameras-table {
         display: block;
